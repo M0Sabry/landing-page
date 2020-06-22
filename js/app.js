@@ -91,3 +91,4 @@ document.getElementById('navbar__list').addEventListener('click',scrollToSec);
 // Set sections as active
 window.addEventListener('scroll',getClosestToTop);
 
+
