@@ -20,6 +20,7 @@
 
 let pageSections=get_pageSections();
 let	active_Sec=pageSections[0];
+let navList=document.getElementById('navbar__list');
 
 /**
  * End Global Variables
@@ -30,7 +31,19 @@ function get_pageSections(){
 	return document.querySelectorAll('section');
 }
 
+function isInViewport(htmlElement) {
+  var position = htmlElement.getBoundingClientRect();
+  return (position.top >= 0 && position.bottom <= window.innerHeight);
+}
 
+function getClosestToTop(){
+	for (let section of pageSections){
+		if(isInViewport(section))
+		{
+			setActiveSec(section);
+		}
+	}
+}
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -38,17 +51,16 @@ function get_pageSections(){
 */
 
 // build the nav
-let navList=document.getElementById('navbar__list');
-navList.style.cssText='text-Align:center;';
-for(let section of pageSections){
-	let navElement=document.createElement('a');
-	navElement.href='javascript:;';
-	navElement.textContent=section.dataset.nav;
-	navElement.setAttribute('data-anchor_id', section.id);
-	navElement.classList.add('menu__link');
-	navList.appendChild(navElement);
+function buildNav(){
+	for(let section of pageSections){
+		let navElement=document.createElement('a');
+		navElement.href='javascript:;';
+		navElement.textContent=section.dataset.nav;
+		navElement.setAttribute('data-anchor_id', section.id);
+		navElement.classList.add('menu__link');
+		navList.appendChild(navElement);
+	}
 }
-
 
 // Add class 'active' to section when near top of viewport
 function setActiveSec(currentSec){
@@ -65,6 +77,7 @@ function scrollToSec(evt){
 		currentSec.scrollIntoView({ behavior: 'smooth'});
 	}
 }
+
 document.getElementById('navbar__list').addEventListener('click',scrollToSec);
 
 /**
@@ -74,9 +87,9 @@ document.getElementById('navbar__list').addEventListener('click',scrollToSec);
 */
 
 // Build menu 
-
+document.addEventListener('DOMContentLoaded',buildNav);
 // Scroll to section on link click
-
+window.addEventListener('scroll',getClosestToTop);
 // Set sections as active
 
 
