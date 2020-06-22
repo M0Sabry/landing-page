@@ -78,8 +78,6 @@ function scrollToSec(evt){
 	}
 }
 
-document.getElementById('navbar__list').addEventListener('click',scrollToSec);
-
 /**
  * End Main Functions
  * Begin Events
@@ -89,7 +87,7 @@ document.getElementById('navbar__list').addEventListener('click',scrollToSec);
 // Build menu 
 document.addEventListener('DOMContentLoaded',buildNav);
 // Scroll to section on link click
-window.addEventListener('scroll',getClosestToTop);
+document.getElementById('navbar__list').addEventListener('click',scrollToSec);
 // Set sections as active
-
+window.addEventListener('scroll',getClosestToTop);
 
